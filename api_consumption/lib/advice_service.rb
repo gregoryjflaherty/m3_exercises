@@ -2,13 +2,17 @@ require 'faraday'
 require 'json'
 
 class AdviceService
-  def random
-    response = Faraday.get('https://api.adviceslip.com/advice')
+
+  def get_url(url)
+    response = Faraday.get(url)
     parsed = JSON.parse(response.body)
   end
 
+  def random
+    get_url('https://api.adviceslip.com/advice')
+  end
+
   def search(query)
-    response = Faraday.get("https://api.adviceslip.com/advice/search/#{query}")
-    parsed = JSON.parse(response.body)
+    get_url("https://api.adviceslip.com/advice/search/#{query}")
   end
 end
